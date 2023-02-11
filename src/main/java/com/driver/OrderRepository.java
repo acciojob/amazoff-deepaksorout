@@ -45,9 +45,9 @@ public class OrderRepository {
 
             orderPartnerPair.put(partnerId,list);
         }
-//        DeliveryPartner curr=deliveryPartnerHashMap.get(partnerId);
-//        curr.setNumberOfOrders(orderPartnerPair.get(partnerId).size());
-//        ordertopartner.put(orderId,partnerId);
+        DeliveryPartner curr=deliveryPartnerHashMap.get(partnerId);
+        curr.setNumberOfOrders(orderPartnerPair.get(partnerId).size());
+        ordertopartner.put(orderId,partnerId);
     }
     public Order getOrderById(String orderId){
         if(!orderHashMap.containsKey(orderId)){
@@ -149,8 +149,8 @@ public class OrderRepository {
         if(ordertopartner.containsKey(orderId)){
             String currPartner=ordertopartner.get(orderId);
             orderPartnerPair.get(currPartner).remove(orderId);
-//            DeliveryPartner curr=deliveryPartnerHashMap.get(currPartner);
-//            curr.setNumberOfOrders(orderPartnerPair.get(currPartner).size());
+            DeliveryPartner curr=deliveryPartnerHashMap.get(currPartner);
+            curr.setNumberOfOrders(orderPartnerPair.get(currPartner).size());
         }
         return ;
     }
