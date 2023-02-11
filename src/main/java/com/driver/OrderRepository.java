@@ -31,17 +31,13 @@ public class OrderRepository {
     public void addOrderPartnerPair(String orderId, String partnerId){
         if(!orderPartnerPair.containsKey(partnerId)){
             List<String> list=new ArrayList<>();
-            if(!list.contains(orderId)){
-                list.add(orderId);
-            }
+            list.add(orderId);
 
             orderPartnerPair.put(partnerId,list);
         }
         else{
             List<String> list=orderPartnerPair.get(partnerId);
-            if(!list.contains(orderId)){
-                list.add(orderId);
-            }
+            list.add(orderId);
 
             orderPartnerPair.put(partnerId,list);
         }
