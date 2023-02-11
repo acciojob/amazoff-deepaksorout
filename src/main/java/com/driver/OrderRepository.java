@@ -134,9 +134,11 @@ public class OrderRepository {
         if(orderPartnerPair.containsKey(partnerId)){
             orderPartnerPair.remove(partnerId);
         }
-        for(String s:orderPartnerPair.get(partnerId)){
-            if(ordertopartner.containsKey(s)){
-                ordertopartner.remove(s);
+        if(orderPartnerPair.containsKey(partnerId)) {
+            for (String s : orderPartnerPair.get(partnerId)) {
+                if (ordertopartner.containsKey(s)) {
+                    ordertopartner.remove(s);
+                }
             }
         }
         return;
