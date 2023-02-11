@@ -31,23 +31,23 @@ public class OrderRepository {
     public void addOrderPartnerPair(String orderId, String partnerId){
         if(!orderPartnerPair.containsKey(partnerId)){
             List<String> list=new ArrayList<>();
-            if(list.contains(orderId)){
-                return;
+            if(!list.contains(orderId)){
+                list.add(orderId);
             }
-            list.add(orderId);
+
             orderPartnerPair.put(partnerId,list);
         }
         else{
             List<String> list=orderPartnerPair.get(partnerId);
-            if(list.contains(orderId)){
-                return ;
+            if(!list.contains(orderId)){
+                list.add(orderId);
             }
-            list.add(orderId);
+
             orderPartnerPair.put(partnerId,list);
         }
-        DeliveryPartner curr=deliveryPartnerHashMap.get(partnerId);
-        curr.setNumberOfOrders(orderPartnerPair.get(partnerId).size());
-        ordertopartner.put(orderId,partnerId);
+//        DeliveryPartner curr=deliveryPartnerHashMap.get(partnerId);
+//        curr.setNumberOfOrders(orderPartnerPair.get(partnerId).size());
+//        ordertopartner.put(orderId,partnerId);
     }
     public Order getOrderById(String orderId){
         if(!orderHashMap.containsKey(orderId)){
@@ -149,8 +149,8 @@ public class OrderRepository {
         if(ordertopartner.containsKey(orderId)){
             String currPartner=ordertopartner.get(orderId);
             orderPartnerPair.get(currPartner).remove(orderId);
-            DeliveryPartner curr=deliveryPartnerHashMap.get(currPartner);
-            curr.setNumberOfOrders(orderPartnerPair.get(currPartner).size());
+//            DeliveryPartner curr=deliveryPartnerHashMap.get(currPartner);
+//            curr.setNumberOfOrders(orderPartnerPair.get(currPartner).size());
         }
         return ;
     }
