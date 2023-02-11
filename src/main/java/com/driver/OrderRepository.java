@@ -120,19 +120,16 @@ public class OrderRepository {
         String m=String.valueOf(min);
 
         if(h.length()==1){
-            h='0'+h;
+            h="0"+h;
         }
         if(m.length()==1){
-            m='0'+m;
+            m="0"+m;
         }
-        return h+" "+m;
+        return h+":"+m;
     }
     public void deletePartnerById(String partnerId){
         if(deliveryPartnerHashMap.containsKey(partnerId)){
             deliveryPartnerHashMap.remove(partnerId);
-        }
-        if(orderPartnerPair.containsKey(partnerId)){
-            orderPartnerPair.remove(partnerId);
         }
         if(orderPartnerPair.containsKey(partnerId)) {
             for (String s : orderPartnerPair.get(partnerId)) {
@@ -140,6 +137,7 @@ public class OrderRepository {
                     ordertopartner.remove(s);
                 }
             }
+            orderPartnerPair.remove(partnerId);
         }
         return;
     }
