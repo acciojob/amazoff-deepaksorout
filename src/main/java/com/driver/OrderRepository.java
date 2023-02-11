@@ -86,17 +86,17 @@ public class OrderRepository {
         return count;
     }
     public Integer getOrdersLeftAfterGivenTimeByPartnerId(String time,String partnerId){
-        Integer t=Integer.valueOf(time.substring(0,2))*60 + Integer.valueOf(time.substring(3));
+        Integer t=Integer.valueOf(time.substring(0,2))* 60 + Integer.valueOf(time.substring(3));
         Integer count=0;
 
-        if(!orderPartnerPair.containsKey(partnerId)){
-            return 0;
-        }
-        for(String s:orderPartnerPair.keySet()){
-            if(orderHashMap.containsKey(s)) {
-                Order curr = orderHashMap.get(s);
-                if (t < curr.getDeliveryTime()) {
-                    count += 1;
+        if(orderPartnerPair.containsKey(partnerId)) {
+            List<String> list=orderPartnerPair.get(partnerId);
+            for (String s : list) {
+                if (orderHashMap.containsKey(s)) {
+                    Order curr = orderHashMap.get(s);
+                    if (t < curr.getDeliveryTime()) {
+                        count += 1;
+                    }
                 }
             }
         }
@@ -104,10 +104,13 @@ public class OrderRepository {
     }
     public String getLastDeliveryTimeByPartnerId(String partnerId){
         Integer time=0;
-        for(String s:orderPartnerPair.keySet()){
-            if(orderHashMap.containsKey(s)){
-                Order curr=orderHashMap.get(s);
-                time=Math.max(time, curr.getDeliveryTime());
+        if(orderPartnerPair.containsKey(partnerId)) {
+            List<String> list=orderPartnerPair.get(partnerId);
+            for (String s : list) {
+                if (orderHashMap.containsKey(s)) {
+                    Order curr = orderHashMap.get(s);
+                    time = Math.max(time, curr.getDeliveryTime());
+                }
             }
         }
         Integer hour=time/60;
@@ -131,8 +134,8 @@ public class OrderRepository {
         if(orderPartnerPair.containsKey(partnerId)){
             orderPartnerPair.remove(partnerId);
         }
-        for(String s:ordertopartner.keySet()){
-            if(ordertopartner.get(s).equals(partnerId)){
+        for(String s:orderPartnerPair.get(partnerId)){
+            if(ordertopartner.containsKey(s)){
                 ordertopartner.remove(s);
             }
         }
